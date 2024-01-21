@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@RequestMapping("/api")
 public class CalculateController {
     @GetMapping("/add/{first}/to/{second}")
     public ArithmeticDto add(@PathVariable double first, @PathVariable double second) {
