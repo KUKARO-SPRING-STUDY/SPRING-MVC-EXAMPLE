@@ -13,6 +13,6 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNotFoundException(NotFoundException ex, Model model) {
         model.addAttribute("error", ex.getMessage());
-        return "404";
+        return "404page";
     }
 }
