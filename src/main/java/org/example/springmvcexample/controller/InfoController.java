@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @RestController
 public class InfoController {
     @GetMapping("/info")
-    public InfoDto test() {
+    public InfoDto info() {
         return new InfoDto("1.0.0", "GoormBackEnd", LocalDateTime.now());
     }
 }
