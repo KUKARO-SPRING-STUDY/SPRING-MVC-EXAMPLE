@@ -56,11 +56,11 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers("/", "/home", "/login");
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring()
+//                .requestMatchers("/", "/home", "/login");
+//    }
 
 
 }
