@@ -7,14 +7,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class TestController {
-    @GetMapping("/test")
+    public String testValue="success";
+    @GetMapping("/test/auth/login")
+    public String testAuth() {
+        if(testValue.equals("success"))
+            testValue="fail";
+        else
+            testValue="success";
+        return "success";
+    }
+
+    @GetMapping("/auth/login")
     public String test() {
-        try {
-            log.info("test");
-            Thread.sleep(10000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return "test";
+        return testValue;
     }
 }
