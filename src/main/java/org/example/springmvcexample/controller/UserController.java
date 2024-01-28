@@ -21,8 +21,8 @@ public class UserController {
 
     @PostMapping("/user")
     public UserResponse createUser(@RequestBody UserRequest userRequest) {
-        UserEntity user = userService.saveUser(new UserEntity(userRequest.getId(), userRequest.getEmail(), userRequest.getName(), userRequest.getPassword()));
-        UserDto userDto = new UserDto(user.getId(), user.getName(), user.getEmail(), user.getPassword());
+        UserEntity user = userService.saveUser(new UserEntity(userRequest.getId(), userRequest.getEmail(), userRequest.getPassword(), userRequest.getName()));
+        UserDto userDto = new UserDto(user.getId(), user.getEmail(), user.getPassword(), user.getName());
         return new UserResponse("SUCCESS", List.of(userDto));
     }
 

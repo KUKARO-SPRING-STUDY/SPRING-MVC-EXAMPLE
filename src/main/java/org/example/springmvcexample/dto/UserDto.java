@@ -7,13 +7,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class UserDto  implements UserDetails {
+public class UserDto implements UserDetails {
     private final long id;
-    private final String name;
     private final String email;
     private final String password;
+    private final String name;
 
-    public UserDto(long id, String name, String email, String password) {
+    public UserDto(long id, String email, String password, String name) {
         this.id = id;
         this.name = name;
         this.email = email;

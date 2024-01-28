@@ -7,21 +7,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Entity
 @Table(name="groom_user")
 public class UserEntity {
-
-    private String email;
-    private String name;
-    private String password;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private long id;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "password")
+    private String password;
 
-    public UserEntity(String name, String email, String password) {
+    @Column(name = "name")
+    private String name;
+
+
+    public UserEntity(String email, String password,String name) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public UserEntity(Long id, String name, String email, String password) {
+    public UserEntity(long id, String email,  String password,String name) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -40,7 +45,7 @@ public class UserEntity {
         return name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

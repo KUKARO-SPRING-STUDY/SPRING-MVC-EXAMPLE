@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +39,7 @@ public class SecurityConfig {
 //        return new InMemoryUserDetailsManager(user);
 //    }
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new AuthService(userRepository);
     }
 
@@ -48,18 +49,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/index").hasRole("USER") // 이렇게도 설정가능
-                                .anyRequest().permitAll()
+//                        .requestMatchers("/index").hasRole("USER") // 이렇게도 설정가능
+                                .anyRequest().authenticated()
                 )
                 .formLogin((login) -> login
-                        .loginPage("/login") // 이건 ignore없이 됨
-                        .loginProcessingUrl("/login-process") // 이건 ignore없으면 튕겨져 나감
+                        .loginPage("/login") // 이거 설정안하면 기본이 login
+                        .loginProcessingUrl("/login-process") // 이거 설정안하면 기본이 login
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/index")
+                        .failureHandler((request, response, authenticationException) -> {
+                            log.info("LOGIN FAIL");
+                            log.info(authenticationException.toString());
+                        })
                         .permitAll()
                 )
 //                .logout((logout) -> logout
@@ -75,7 +81,6 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .requestMatchers("/auth/*")
-                .requestMatchers("/login-process")
                 .requestMatchers("/api/user", "/api/users", "/api/user/*");
     }
 
