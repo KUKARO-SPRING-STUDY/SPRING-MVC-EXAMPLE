@@ -1,7 +1,6 @@
 package org.example.springmvcexample.dto;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -12,7 +11,6 @@ public class UserDto implements UserDetails {
     private final String email;
     private final String password;
     private final String name;
-
     private final List<GrantedAuthority> roles;
 
     public UserDto(long id, String email, String password, String name, List<GrantedAuthority> roles) {

@@ -26,18 +26,6 @@ public class SecurityConfig {
         this.userRepository = userRepository;
     }
 
-    //    @Bean
-//    public InMemoryUserDetailsManager userDetailsService() {
-//        UserDetails user = User.withUserDetails(
-//                        User.builder()
-//                                .username("user")
-//                                .password("password")
-//                                .roles("USER")
-//                                .build())
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
     @Bean
     public UserDetailsService userDetailsService() {
         return new AuthService(userRepository);
@@ -83,6 +71,4 @@ public class SecurityConfig {
                 .requestMatchers("/auth/*")
                 .requestMatchers("/api/user", "/api/users", "/api/user/*");
     }
-
-
 }
