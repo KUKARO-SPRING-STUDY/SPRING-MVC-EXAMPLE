@@ -5,6 +5,7 @@ import org.example.springmvcexample.entity.UserEntity;
 import org.example.springmvcexample.request.UserRequest;
 import org.example.springmvcexample.response.UserResponse;
 import org.example.springmvcexample.service.UserService;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,14 +23,14 @@ public class UserController {
     @PostMapping("/user")
     public UserResponse createUser(@RequestBody UserRequest userRequest) {
         UserEntity user = userService.saveUser(new UserEntity(userRequest.getId(), userRequest.getEmail(), userRequest.getPassword(), userRequest.getName()));
-        UserDto userDto = new UserDto(user.getId(), user.getEmail(), user.getPassword(), user.getName());
+        UserDto userDto = new UserDto(user.getId(), user.getEmail(), user.getPassword(), user.getName(), List.of(new SimpleGrantedAuthority("USER")));
         return new UserResponse("SUCCESS", List.of(userDto));
     }
 
     @GetMapping("/users")
     public UserResponse showUsers() {
         List<UserEntity> users = userService.findAllUser();
-        List<UserDto> userDtos = users.stream().map(user -> new UserDto(user.getId(), user.getName(), user.getEmail(), user.getPassword())).toList();
+        List<UserDto> userDtos = users.stream().map(user -> new UserDto(user.getId(), user.getName(), user.getEmail(), user.getPassword(), List.of(new SimpleGrantedAuthority("USER")))).toList();
         return new UserResponse("SUCCESS", userDtos);
     }
 

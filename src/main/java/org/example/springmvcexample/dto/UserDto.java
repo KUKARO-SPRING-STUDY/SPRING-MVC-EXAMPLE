@@ -13,11 +13,14 @@ public class UserDto implements UserDetails {
     private final String password;
     private final String name;
 
-    public UserDto(long id, String email, String password, String name) {
+    private final List<GrantedAuthority> roles;
+
+    public UserDto(long id, String email, String password, String name, List<GrantedAuthority> roles) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 
     public long getId() {
@@ -34,7 +37,7 @@ public class UserDto implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("USER"));
+        return roles;
     }
 
     @Override
@@ -65,5 +68,16 @@ public class UserDto implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
