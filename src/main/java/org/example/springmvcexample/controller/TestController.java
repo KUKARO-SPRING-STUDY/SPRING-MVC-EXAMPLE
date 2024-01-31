@@ -16,9 +16,4 @@ public class TestController {
             testValue="success";
         return "success";
     }
-
-    @GetMapping("/auth/login")
-    public String test() {
-        return testValue;
-    }
 }
