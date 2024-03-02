@@ -5,6 +5,7 @@ import org.example.springmvcexample.repository.UserRepository;
 import org.example.springmvcexample.service.AuthService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -41,8 +42,10 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
+                                .requestMatchers("/old/*").permitAll()
 //                        .requestMatchers("/index").hasRole("USER") // 이렇게도 설정가능
-                                .anyRequest().authenticated()
+                                .anyRequest()
+                                .authenticated()
                 )
                 .formLogin((login) -> login
                         .loginPage("/login") // 이거 설정안하면 기본이 login
@@ -65,6 +68,9 @@ public class SecurityConfig {
                 .build();
     }
 
+    /**
+     * 이건 비권장이고 위의 /old처럼 해야함
+     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
