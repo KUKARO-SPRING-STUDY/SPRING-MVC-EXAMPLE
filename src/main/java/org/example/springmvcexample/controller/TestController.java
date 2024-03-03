@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class TestController {
-    public String testValue="success";
+    public String testValue = "success";
+
     @GetMapping("/test/auth/login")
     public String testAuth() {
-        if(testValue.equals("success"))
-            testValue="fail";
+        if (testValue.equals("success"))
+            testValue = "fail";
         else
-            testValue="success";
+            testValue = "success";
         return "success";
     }
 }
