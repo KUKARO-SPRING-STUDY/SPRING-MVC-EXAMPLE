@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
                                 .requestMatchers("/old/*").permitAll()
+                                .requestMatchers("/test/**").permitAll()
 //                        .requestMatchers("/index").hasRole("USER") // 이렇게도 설정가능
                                 .anyRequest()
                                 .authenticated()
