@@ -3,7 +3,6 @@ package org.example.springmvcexample.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.springmvcexample.dto.UserDto;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
